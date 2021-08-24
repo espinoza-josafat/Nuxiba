@@ -1,148 +1,15 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<div ng-view></div>
-
-@section Scripts{
-    <script >
-        app.config(function ($routeProvider) {
-            $routeProvider
-                .when("/", {
-                    templateUrl: "@Url.Content("~/Scripts/views/lista-usuarios.html")",
-                    controller: "listaUsuariosCtrl"
-                })
-                .when("/EditarUsuario", {
-                    templateUrl: "@Url.Content("~/Scripts/views/editar-usuario.html")"
-                });
-        });
-
-        app.controller("listaUsuariosCtrl", function ($scope, NgTableParams, $http) {
-            $scope.Lista = function () {
-                $http.get(baseUrl + "Api/Usuario/Lista")
-                    .then(function (response) {
-                        var data = response.data;
-
-                        $scope.tableParams = new NgTableParams({}, { dataset: data });
-                    });
-            }
-
-            $scope.Lista();
-
-            $scope.Eliminar = function (id) {
-                if (confirm("¿Estas seguro que quieres eliminar este usuario?")) {
-                    var req = {
-                        method: 'POST',
-                        url: baseUrl + "Api/Usuario/Eliminar",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            "id": parseInt(id)
-                        }
-                    };
-
-                    $http(req).then(function () {
-                        $scope.Lista();
-                    });
-                }
-            }
-        });
-
-        app.directive('pwCheck', [function () {
-            return {
-                require: 'ngModel',
-                link: function (scope, elem, attrs, ctrl) {
-                    var firstPassword = '#' + attrs.pwCheck;
-                    elem.add(firstPassword).on('keyup', function () {
-                        scope.$apply(function () {
-                            var v = elem.val() === $(firstPassword).val();
-                            ctrl.$setValidity('pwmatch', v);
-                        });
-                    });
-                }
-            }
-        }]);
-
-        app.controller("editarUsuarioCtrl", function ($scope, $http, $location) {
-            
-            $scope.campoRequerido = true;
-            $scope.patternUsuario = /^[0-9a-zA-Z]+$/;
-            $scope.patternPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])(?=.{10,})/;
-
-
-            $scope.id = "";
-
-            $scope.username = "";
-            $scope.correoElectronico = "";
-            $scope.password = "";
-            $scope.confirmarPassword = "";
-            
-            $scope.listaEstatus = [{ "value": "true", "text": "Activo" }, { "value": "false", "text": "Inactivo" }];
-            $scope.estatus = "true";
-
-            $scope.sexos = [];
-            $scope.sexo = "";
-
-            $scope.ObtenerSexos = function () {
-                $http.get(baseUrl + "Api/Sexo/Obtener")
-                    .then(function (response) {
-                        $scope.sexos = response.data;
-                        if (!$scope.sexo) {
-                            $scope.sexo = "1";
-                        }
-                    });
-            }
-
-            $scope.ObtenerSexos();
-
-            $scope.Guardar = function () {
-                $http.get(baseUrl + "Api/Usuario/ObtenerPorUsernameId?username=" + encodeURI($scope.username) + ($scope.id ? ("&id=" + $scope.id) : ""))
-                    .then(function (response) {
-                        if (response && response.data) {
-                            alert("El Usuario ya existe, cambialo para continuar");
-                        }
-                        else {
-                            var req = {
-                                method: 'POST',
-                                url: baseUrl + "Api/Usuario/Guardar",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                data: {
-                                    "correo_electronico": $scope.correoElectronico,
-                                    "username": $scope.username,
-                                    "password": $scope.password,
-                                    "estatus": $scope.estatus,
-                                    "sexo": $scope.sexo,
-                                    "id": $scope.id ? $scope.id : undefined
-                                }
-                            };
-
-                            $http(req).then(function () {
-                                $scope.Regresar();
-                            });
-                        }
-                    });
-            }
-
-            $scope.Regresar = function () {
-                $location.path("/");
-            }
-
-            if ($location.search().id) {
-                $http.get(baseUrl + "Api/Usuario/ObtenerPorId?id=" + encodeURI($location.search().id))
-                    .then(function (response) {
-                        if (response && response.data) {
-                            $scope.username = response.data.username;
-                            $scope.correoElectronico = response.data.correo_electronico;
-                            $scope.estatus = response.data.estatus ? "true" : "false";
-                            $scope.sexo = response.data.sexo.toString();
-                            $scope.id = response.data.id.toString();
-                        }
-                    });
-            }
-        });
-    </script>
-}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>fuente de múltiples elementos</title>
+</head>
+<body>
+    <h1>API</h1>
+</body>
+</html>
