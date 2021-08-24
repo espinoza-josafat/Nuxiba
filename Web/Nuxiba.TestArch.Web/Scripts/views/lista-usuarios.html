@@ -1,0 +1,41 @@
+﻿<div ng-controller="listaUsuariosCtrl">
+
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-4" style="text-align: right;">
+            <a href="#!EditarUsuario" class="btn btn-info" role="button">Agregar</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table ng-table="tableParams" class="table" show-filter="true">
+            <tr ng-repeat="user in $data">
+                <td title="'Id'" filter="{ id: 'number'}" sortable="'id'">
+                    {{user.id}}
+                </td>
+                <td title="'Usuario'" filter="{ username: 'text'}" sortable="'username'">
+                    {{user.username}}
+                </td>
+                <td title="'Correo'" filter="{ correo_electronico: 'text'}" sortable="'correo_electronico'">
+                    {{user.correo_electronico}}
+                </td>
+                <td title="'Sexo'" filter="{ sexo: 'text'}" sortable="'sexo'">
+                    {{user.sexo}}
+                </td>
+                <td title="'Estatus'" filter="{ estatus: 'text'}" sortable="'estatus'">
+                    {{user.estatus}}
+                </td>
+                <td title="'Acciones'">
+                    <a href="#!EditarUsuario?id={{user.id}}" class="btn btn-primary" role="button">
+                        <span class='fa fa-pencil'></span>
+                    </a>
+
+                    <a href="javascript:void(0);" class="btn btn-danger" role="button" ng-show="user.estatus == 'SI'" ng-click="Eliminar(user.id)">
+                        <span class='fa fa-trash-o'></span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

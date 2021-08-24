@@ -1,0 +1,99 @@
+﻿<form name="frmUsuario" ng-submit="Guardar()" ng-controller="editarUsuarioCtrl" novalidate>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label" for="EditNombre">Nombre *</label>
+
+            <input type="text" class="form-control input-sm" id="EditNombre" name="EditNombre" maxlength="150" autocomplete="off" ng-model="nombre" ng-required="campoRequerido" ng-minlength="2" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditUsername">Usuario *</label>
+
+            <input type="hidden" id="hiddenId" ng-model="id" />
+            <input type="text" class="form-control input-sm" id="EditUsername" name="EditUsername" maxlength="25" autocomplete="off" ng-model="username" ng-required="campoRequerido" ng-minlength="7" ng-pattern="patternUsuario" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditCorreoElectronico">Correo electrónico *</label>
+
+            <input type="email" class="form-control input-sm" id="EditCorreoElectronico" name="EditCorreoElectronico" maxlength="50" autocomplete="off" ng-model="correoElectronico" ng-required="campoRequerido" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditPassword">Contraseña *</label>
+
+            <input type="password" class="form-control input-sm" id="EditPassword" name="EditPassword" maxlength="50" ng-model="password" ng-required="campoRequerido" ng-minlength="10" ng-pattern="patternPassword" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditConfirmPassword">Confirmar Contraseña *</label>
+
+            <input type="password" class="form-control input-sm" id="EditConfirmPassword" name="EditConfirmPassword" maxlength="50" ng-model="confirmarPassword" pw-check='EditPassword' />
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label" for="EditSexo">Sexo *</label>
+
+            <select class="form-control input-sm" id="EditSexo" ng-model="sexo">
+                <option ng-repeat="x in sexos" value="{{x.id}}">{{x.descripcion}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-3" ng-show="!id">
+        <div class="form-group">
+            <label class="control-label" for="EditEstatus">Estatus *</label>
+
+            <select class="form-control input-sm" id="EditEstatus" ng-model="estatus">
+                <option ng-repeat="x in listaEstatus" value="{{x.value}}">{{x.text}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div ng-show="frmUsuario.EditUsername.$error.required">El Usuario es requerido</div>
+        <div ng-show="frmUsuario.EditUsername.$error.minlength">La longitud mínima de caracteres para el Usuario es 7</div>
+        <div ng-show="frmUsuario.EditUsername.$error.pattern">El Usuario no cumple con el patrón, solo letras y números</div>
+
+        <div ng-show="frmUsuario.EditCorreoElectronico.$error.required">El Correo electrónico es requerido</div>
+        <div ng-show="frmUsuario.EditCorreoElectronico.$error.email">El Correo electrónico no tiene un formato válido</div>
+
+
+        <div ng-show="frmUsuario.EditNombre.$error.required">El Nombre es requerido</div>
+        <div ng-show="frmUsuario.EditNombre.$error.minlength">La longitud mínima de caracteres para el Nombre es 2</div>
+
+
+        <div ng-show="frmUsuario.EditPassword.$error.required">La Contraseña es requerida</div>
+        <div ng-show="frmUsuario.EditPassword.$error.minlength">La longitud mínima de caracteres para la Contraseña es 10</div>
+        <div ng-show="frmUsuario.EditPassword.$error.pattern">La Contraseña debe contener mayúsculas, minúsculas, símbolos y números</div>
+
+        <div ng-show="frmUsuario.EditConfirmPassword.$error.pwmatch">La Contraseña no coincide</div>
+    </div>
+
+    <div class="col-md-12" style="text-align: right;">
+        <input type="submit" class="btn btn-success" value="Guardar" ng-disabled="frmUsuario.EditUsername.$error.required ||
+               frmUsuario.EditUsername.$error.minlength ||
+               frmUsuario.EditUsername.$error.pattern ||
+               frmUsuario.EditCorreoElectronico.$error.required ||
+               frmUsuario.EditCorreoElectronico.$error.email ||
+               frmUsuario.EditNombre.$error.required ||
+               frmUsuario.EditNombre.$error.minlength ||
+               frmUsuario.EditPassword.$error.required ||
+               frmUsuario.EditPassword.$error.minlength ||
+               frmUsuario.EditPassword.$error.pattern ||
+               frmUsuario.EditConfirmPassword.$error.pwmatch">
+        <input type="button" class="btn btn-link" value="Regresar" ng-click="Regresar()">
+    </div>
+
+</form>

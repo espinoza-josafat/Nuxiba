@@ -1,0 +1,15 @@
+Para iniciar sesión:
+
+usuario1
+Usuario1***
+
+
+usuario2
+Usuario2***
+
+
+PROJECTO WEB
+Cambiar puerto (SI ES NECESARIO) en appSettings => api
+
+PROJECTO API
+Cambiar cadenas de conexión connectionStrings=> NuxibaDemoDbContext, ConnectionString

@@ -1,0 +1,14 @@
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\bin\Debug\Nuxiba.TestArch.Tools.dll
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\bin\Debug\Nuxiba.TestArch.Tools.pdb
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.csprojAssemblyReference.cache
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.csproj.CoreCompileInputs.cache
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.dll
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.pdb
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\bin\Debug\Nuxiba.TestArch.Tools.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\bin\Debug\Nuxiba.TestArch.Tools.pdb
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\bin\Debug\Newtonsoft.Json.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.csprojAssemblyReference.cache
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.csproj.CoreCompileInputs.cache
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.csproj.CopyComplete
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Tools\obj\Debug\Nuxiba.TestArch.Tools.pdb

@@ -1,0 +1,126 @@
+﻿<style>
+    .modal-header-default {
+        color: rgb(51, 51, 51);
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #fff;
+    }
+
+    .modal-header-info {
+        color: #fff;
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #5bc0de;
+    }
+
+    .modal-header-success {
+        color: #fff;
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #5cb85c;
+    }
+
+    .modal-header-warning {
+        color: #fff;
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #f0ad4e;
+    }
+
+    .modal-header-danger {
+        color: #fff;
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #d9534f;
+    }
+
+    .modal-header-primary {
+        color: #fff;
+        padding: 9px 15px;
+        border-bottom: 1px solid #eee;
+        background-color: #428bca;
+    }
+</style>
+
+<div class="modal" id="divModalMensaje">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-default" id="divHeaderModalMensaje">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="divTituloModalMensaje">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <p id="pTextoModalMensaje">One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="buttonModalAceptar">Aceptar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    function mostrarModalMensaje(tipo, titulo, texto, onClose) {
+        $(function () {
+            var divModalMensaje = $("#divModalMensaje");
+
+            divModalMensaje.on("shown.bs.modal", function () {
+                $("#buttonModalAceptar").focus();
+            });
+
+            divModalMensaje.on("hidden.bs.modal", function () {
+                limpiarRecursosModalMensaje();
+
+                if (onClose && (typeof onClose == "function")) {
+                    onClose();
+                }
+            });
+
+            var divHeaderModalMensaje = $("#divHeaderModalMensaje");
+            var buttonModalAceptar = $("#buttonModalAceptar");
+
+            $(divHeaderModalMensaje).removeClass();
+            $(buttonModalAceptar).removeClass();
+
+            if (tipo == 0) {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-info");
+                $(buttonModalAceptar).addClass("btn btn-info");
+            }
+            else if (tipo == 1) {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-success");
+                $(buttonModalAceptar).addClass("btn btn-success");
+            }
+            else if (tipo == 2) {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-warning");
+                $(buttonModalAceptar).addClass("btn btn-warning");
+            }
+            else if (tipo == 3) {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-danger");
+                $(buttonModalAceptar).addClass("btn btn-danger");
+            }
+            else if (tipo == 4) {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-primary");
+                $(buttonModalAceptar).addClass("btn btn-primary");
+            }
+            else {
+                $(divHeaderModalMensaje).addClass("modal-header modal-header-default");
+                $(buttonModalAceptar).addClass("btn btn-default");
+            }
+
+            $("#divTituloModalMensaje").html(titulo ? titulo : "");
+            $("#pTextoModalMensaje").html(texto ? texto : "");
+
+            divModalMensaje.modal("show");
+        });
+    }
+
+    function limpiarRecursosModalMensaje() {
+        var divModalMensaje = $("#divModalMensaje");
+        divModalMensaje.off("shown.bs.modal");
+        divModalMensaje.off("hidden.bs.modal");
+    }
+</script>

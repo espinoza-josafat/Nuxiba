@@ -1,0 +1,108 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Title))
+        {
+            @ViewBag.Title@: -
+        }
+        One Core
+    </title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="@Url.Content("~/Content/css/font-awesome.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/icheck/blue.min.css")" rel="stylesheet" />
+    @Styles.Render("~/Bundles/css")
+
+    <link href="@Url.Content("~/Content/js/plugins/jquery.bootgrid/jquery.bootgrid.min.css")" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.css">
+    
+
+    @RenderSection("Styles", required: false)
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini" ng-app="NuxibaApp">
+    <div class="wrapper">
+        @Html.Partial("_Header")
+        @Html.Partial("_Sidebar")
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>
+                    @ViewBag.Title
+                    <small>@ViewBag.Description</small>
+                </h1>
+            </section>
+
+            <section class="content">
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+
+    <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+    @Scripts.Render("~/Bundles/js")
+
+    <script src="@Url.Content("~/Scripts/angular.js")"></script>
+    <script src="@Url.Content("~/Scripts/angular-route.js")"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.js"></script>
+
+    <script src="@Url.Content("~/Scripts/app/NuxibaApp.js")"></script>
+
+
+    <script src="@Url.Content("~/Content/js/plugins/jquery.bootgrid/jquery.bootgrid.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/js/jquery.custom.extension.js")"></script>
+
+    @Html.Partial("_ModalMensaje")
+    @Html.Partial("_ModalConfirm")
+    @Html.Partial("_OverlayLoading")
+
+    <script>
+        var baseUrl = "@Url.Content("~/")";
+
+        //La siguientes líneas se encargan del manejo de la sesión para las peticiones AJAX, en caso de que esta ya haya expirado.
+        //El servidor regresa un estatus 401 (Unauthorized), el cual es atrapado para redirigir a la página de login.
+        $(document).ajaxError(function (e, xhr, settings) {
+            if (xhr.status == 401)
+                window.location = "@Url.Content(FormsAuthentication.LoginUrl)";
+        });
+
+        function LayoutLogoff() {
+            $.ajax({
+                url: baseUrl + "api/account/logoff",
+                cache: false,
+                dataType: "json",
+                type: "POST",
+                beforeSend: function () {
+                    mostrarOverlayLoading(true);
+                },
+                success: function (data) {
+                    window.location.href = "@Url.Content(FormsAuthentication.LoginUrl)";
+                },
+                error: function (data) {
+                    if (data && data.responseJSON && data.responseJSON.message)
+                        mostrarModalMensaje(2, "One Core - Log off", data.responseJSON.message);
+                },
+                complete: function () {
+                    mostrarOverlayLoading(false);
+                }
+            });
+
+            return false;
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

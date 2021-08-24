@@ -1,0 +1,90 @@
+﻿<div id="divModalConfirm" class="modal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-default" id="divHeaderModalConfirm">
+                <button type="button" class="close" id="buttonModalConfirmCerrar">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="divTituloModalConfirm">Default Modal</h4>
+            </div>
+            <div class="modal-body">
+                <p id="pTextoModalConfirm">One fine body…</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" id="buttonModalConfirmCancelar">Cancelar</button>
+                <button type="button" class="btn btn-default" id="buttonModalConfirmAceptar">Aceptar</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    function mostrarModalConfirm(tipo, titulo, texto, onConfirm, onCancel) {
+        $(function () {
+            var divModalConfirm = $("#divModalConfirm");
+
+            divModalConfirm.on("shown.bs.modal", function () {
+                $("#buttonModalConfirmCancelar").focus();
+            });
+
+            var divHeaderModalConfirm = $("#divHeaderModalConfirm");
+            var buttonModalConfirmAceptar = $("#buttonModalConfirmAceptar");
+
+            $(divHeaderModalConfirm).removeClass();
+            $(buttonModalConfirmAceptar).removeClass();
+
+            if (tipo == 0) {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-info");
+                $(buttonModalConfirmAceptar).addClass("btn btn-info");
+            }
+            else if (tipo == 1) {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-success");
+                $(buttonModalConfirmAceptar).addClass("btn btn-success");
+            }
+            else if (tipo == 2) {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-warning");
+                $(buttonModalConfirmAceptar).addClass("btn btn-warning");
+            }
+            else if (tipo == 3) {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-danger");
+                $(buttonModalConfirmAceptar).addClass("btn btn-danger");
+            }
+            else if (tipo == 4) {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-primary");
+                $(buttonModalConfirmAceptar).addClass("btn btn-primary");
+            }
+            else {
+                $(divHeaderModalConfirm).addClass("modal-header modal-header-default");
+                $(buttonModalConfirmAceptar).addClass("btn btn-default");
+            }
+
+            $("#divTituloModalConfirm").html(titulo ? titulo : "");
+            $("#pTextoModalConfirm").html(texto ? texto : "");
+
+            $("#buttonModalConfirmAceptar").on("click", function () {
+                ocultarModalConfirm();
+                if (onConfirm && (typeof onConfirm == "function")) {
+                    onConfirm();
+                }
+            });
+
+            $("#buttonModalConfirmCancelar, #buttonModalConfirmCerrar").on("click", function () {
+                ocultarModalConfirm();
+                if (onCancel && (typeof onCancel == "function")) {
+                    onCancel();
+                }
+            });
+
+            divModalConfirm.modal("show");
+        });
+    }
+
+    function ocultarModalConfirm() {
+        $("#buttonModalConfirmAceptar, #buttonModalConfirmCancelar, #buttonModalConfirmCerrar").off("click");
+        var divModalConfirm = $("#divModalConfirm");
+        divModalConfirm.modal("hide");
+        divModalConfirm.off("shown.bs.modal");
+    }
+</script>

@@ -1,0 +1,17 @@
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\bin\Debug\Nuxiba.TestArch.Entities.dll
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\bin\Debug\Nuxiba.TestArch.Entities.pdb
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\bin\Debug\Newtonsoft.Json.dll
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\bin\Debug\Newtonsoft.Json.xml
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csprojAssemblyReference.cache
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csproj.CoreCompileInputs.cache
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csproj.CopyComplete
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.dll
+C:\Nuxiba\testarch\Api\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.pdb
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\bin\Debug\Nuxiba.TestArch.Entities.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\bin\Debug\Nuxiba.TestArch.Entities.pdb
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\bin\Debug\Newtonsoft.Json.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csprojAssemblyReference.cache
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csproj.CoreCompileInputs.cache
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.csproj.CopyComplete
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.dll
+C:\repos\Nuxiba\Nuxiba\Common\Nuxiba.TestArch.Entities\obj\Debug\Nuxiba.TestArch.Entities.pdb

@@ -1,0 +1,248 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-view></div>
+
+@section Scripts{
+    <script>
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "@Url.Content("~/Scripts/views/dashboard.html")",
+                    controller: "dashboardCtrl"
+                })
+                .when("/ListadoUsuarios", {
+                    templateUrl: "@Url.Content("~/Scripts/views/lista-usuarios.html")",
+                    controller: "listaUsuariosCtrl"
+                })
+                .when("/EditarUsuario", {
+                    templateUrl: "@Url.Content("~/Scripts/views/editar-usuario.html")",
+                    controller: "editarUsuarioCtrl"
+                })
+                .when("/ListadoTareas", {
+                    templateUrl: "@Url.Content("~/Scripts/views/lista-tareas.html")",
+                    controller: "listaTareasCtrl"
+                })
+                .when("/EditarTarea", {
+                    templateUrl: "@Url.Content("~/Scripts/views/editar-tarea.html")",
+                    controller: "editarTareaCtrl"
+                });
+        });
+
+        app.controller("dashboardCtrl", function ($scope, $http, $location) {
+            $scope.text = "Dashboard";
+        });
+
+        app.controller("listaTareasCtrl", function ($scope, NgTableParams, $http) {
+            $scope.Lista = function () {
+                $http.get(baseUrl + "Api/Tarea/Lista")
+                    .then(function (response) {
+                        var data = response.data;
+
+                        $scope.tableParams = new NgTableParams({}, { dataset: data });
+                    });
+            }
+
+            $scope.Lista();
+
+            $scope.Eliminar = function (id) {
+                if (confirm("¿Estas seguro que quieres eliminar esta tarea?")) {
+                    var req = {
+                        method: 'POST',
+                        url: baseUrl + "Api/Tarea/Eliminar",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: {
+                            "id": parseInt(id)
+                        }
+                    };
+
+                    $http(req).then(function () {
+                        $scope.Lista();
+                    });
+                }
+            }
+        });
+
+        app.controller("editarTareaCtrl", function ($scope, $http, $location) {
+            $scope.campoRequerido = true;
+
+            $scope.id = "";
+
+            $scope.nombre = "";
+            $scope.descripcion = "";
+
+            $scope.listaEstatus = [{ "value": "true", "text": "Completada" }, { "value": "false", "text": "Pendiente" }];
+            $scope.estatus = "false";
+
+            $scope.Guardar = function () {
+                var req = {
+                    method: 'POST',
+                    url: baseUrl + "Api/Tarea/Guardar",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        "estatus": $scope.estatus,
+                        "nombre": $scope.nombre,
+                        "descripcion": $scope.descripcion,
+                        "id": $scope.id ? $scope.id : undefined
+                    }
+                };
+
+                $http(req).then(function () {
+                    $scope.Regresar();
+                });
+            }
+
+            $scope.Regresar = function () {
+                $location.path("/ListadoTareas");
+            }
+
+            if ($location.search().id) {
+                $http.get(baseUrl + "Api/Tarea/ObtenerPorId?id=" + encodeURI($location.search().id))
+                    .then(function (response) {
+                        if (response && response.data) {
+                            $scope.nombre = response.data.nombre;
+                            $scope.descripcion = response.data.descripcion;
+                            $scope.estatus = response.data.estatus ? "true" : "false";
+                            $scope.id = response.data.id.toString();
+                        }
+                    });
+            }
+        });
+
+        app.controller("listaUsuariosCtrl", function ($scope, NgTableParams, $http) {
+            $scope.Lista = function () {
+                $http.get(baseUrl + "Api/Usuario/Lista")
+                    .then(function (response) {
+                        var data = response.data;
+
+                        $scope.tableParams = new NgTableParams({}, { dataset: data });
+                    });
+            }
+
+            $scope.Lista();
+
+            $scope.Eliminar = function (id) {
+                if (confirm("¿Estas seguro que quieres eliminar este usuario?")) {
+                    var req = {
+                        method: 'POST',
+                        url: baseUrl + "Api/Usuario/Eliminar",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: {
+                            "id": parseInt(id)
+                        }
+                    };
+
+                    $http(req).then(function () {
+                        $scope.Lista();
+                    });
+                }
+            }
+        });
+
+        app.directive('pwCheck', [function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, elem, attrs, ctrl) {
+                    var firstPassword = '#' + attrs.pwCheck;
+                    elem.add(firstPassword).on('keyup', function () {
+                        scope.$apply(function () {
+                            var v = elem.val() === $(firstPassword).val();
+                            ctrl.$setValidity('pwmatch', v);
+                        });
+                    });
+                }
+            }
+        }]);
+
+        app.controller("editarUsuarioCtrl", function ($scope, $http, $location) {
+
+            $scope.campoRequerido = true;
+            $scope.patternUsuario = /^[0-9a-zA-Z]+$/;
+            $scope.patternPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])(?=.{10,})/;
+
+
+            $scope.id = "";
+
+            $scope.username = "";
+            $scope.nombre = "";
+            $scope.correoElectronico = "";
+            $scope.password = "";
+            $scope.confirmarPassword = "";
+
+            $scope.listaEstatus = [{ "value": "true", "text": "Activo" }, { "value": "false", "text": "Inactivo" }];
+            $scope.estatus = "true";
+
+            $scope.sexos = [];
+            $scope.sexo = "";
+
+            $scope.ObtenerSexos = function () {
+                $http.get(baseUrl + "Api/Sexo/Obtener")
+                    .then(function (response) {
+                        $scope.sexos = response.data;
+                        if (!$scope.sexo) {
+                            $scope.sexo = "1";
+                        }
+                    });
+            }
+
+            $scope.ObtenerSexos();
+
+            $scope.Guardar = function () {
+                $http.get(baseUrl + "Api/Usuario/ObtenerPorUsernameId?username=" + encodeURI($scope.username) + ($scope.id ? ("&id=" + $scope.id) : ""))
+                    .then(function (response) {
+                        if (response && response.data) {
+                            alert("El Usuario ya existe, cambialo para continuar");
+                        }
+                        else {
+                            var req = {
+                                method: 'POST',
+                                url: baseUrl + "Api/Usuario/Guardar",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                data: {
+                                    "correo_electronico": $scope.correoElectronico,
+                                    "username": $scope.username,
+                                    "password": $scope.password,
+                                    "estatus": $scope.estatus,
+                                    "nombre": $scope.nombre,
+                                    "sexo": $scope.sexo,
+                                    "id": $scope.id ? $scope.id : undefined
+                                }
+                            };
+
+                            $http(req).then(function () {
+                                $scope.Regresar();
+                            });
+                        }
+                    });
+            }
+
+            $scope.Regresar = function () {
+                $location.path("/ListadoUsuarios");
+            }
+
+            if ($location.search().id) {
+                $http.get(baseUrl + "Api/Usuario/ObtenerPorId?id=" + encodeURI($location.search().id))
+                    .then(function (response) {
+                        if (response && response.data) {
+                            $scope.username = response.data.username;
+                            $scope.nombre = response.data.nombre;
+                            $scope.correoElectronico = response.data.correo_electronico;
+                            $scope.estatus = response.data.estatus ? "true" : "false";
+                            $scope.sexo = response.data.sexo.toString();
+                            $scope.id = response.data.id.toString();
+                        }
+                    });
+            }
+        });
+    </script>
+}

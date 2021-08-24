@@ -1,0 +1,42 @@
+﻿<form name="frmUsuario" ng-submit="Guardar()" ng-controller="editarTareaCtrl" novalidate>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label" for="EditNombre">Nombre *</label>
+
+            <input type="hidden" id="hiddenId" ng-model="id" />
+            <input type="text" class="form-control input-sm" id="EditNombre" name="EditNombre" maxlength="50" autocomplete="off" ng-model="nombre" ng-required="campoRequerido" ng-minlength="2" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditDescripcion">Descripción *</label>
+
+            <textarea type="text" class="form-control input-sm" id="EditDescripcion" name="EditDescripcion" maxlength="250" autocomplete="off" ng-model="descripcion" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="EditEstatus">Estatus *</label>
+
+            <select class="form-control input-sm" id="EditEstatus" ng-model="estatus">
+                <option ng-repeat="x in listaEstatus" value="{{x.value}}">{{x.text}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div ng-show="frmUsuario.EditNombre.$error.required">El Nombre es requerido</div>
+        <div ng-show="frmUsuario.EditNombre.$error.minlength">La longitud mínima de caracteres para el Nombre es 2</div>
+    </div>
+
+    <div class="col-md-12" style="text-align: right;">
+        <input type="submit" class="btn btn-success" value="Guardar" ng-disabled="
+               frmUsuario.EditNombre.$error.required ||
+               frmUsuario.EditNombre.$error.minlength">
+        <input type="button" class="btn btn-link" value="Regresar" ng-click="Regresar()">
+    </div>
+
+</form>
